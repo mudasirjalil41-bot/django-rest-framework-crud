@@ -1,27 +1,20 @@
 """
 URL configuration for myproject project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/6.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path
-from API import views as api_views                     # API app ke views
-from deserialization import views as des_views
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('stuinfo/<int:pk>/', api_views.student_detail),
 
-    # Deserialization App ke URLs (Spelling theek karne ke baad)
-    path('stucreate/', des_views.student_create),
+# Sahi import: Kyunki aapki app ka naam 'project' hai
+from project import views as project_views
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    # Aapka CRUD API endpoint jo 'project' app ke andar hai
+    path("student/", project_views.student_api, name="student_list_create"),
+    path(
+        "student/<int:pk>/",
+        project_views.student_api,
+        name="student_detail_api",
+    ),
 ]
